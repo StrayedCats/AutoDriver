@@ -5,14 +5,14 @@
 <xacro:include filename="$(find auto_driver_description)/urdf/auto_driver.material.xacro" />
 
 <xacro:macro name="auto_driver" params="parent *origin">
-  <joint name="origin_to_link1" type="fixed">
+  <joint name="origin_to_base_frame" type="fixed">
     <xacro:insert_block name="origin" />
     <parent link="${parent}" />
-    <child link="link1" />
+    <child link="base_frame" />
     <axis xyz="0 0 1" />
   </joint>
 
-  <link name="link1">
+  <link name="base_frame">
     <visual>
       <origin xyz="0 0 0" rpy="0 -1.5708 0"/>
       <geometry>
@@ -39,16 +39,16 @@
 
   <link name="fake_1_to_2" />
   <joint name="fake_1_to_2_joint" type="fixed">
-    <parent link="link1" />
+    <parent link="base_frame" />
     <child link="fake_1_to_2" />
-    <origin xyz="0 0 0.19" rpy="0 0 0" />
+    <origin xyz="-0.05 0 0.18" rpy="0 0 0" />
   </joint>
 
 
-  <joint name="yaw_joint" type="fixed">
+  <joint name="yaw_joint" type="revolute">
     <parent link="fake_1_to_2"/>
     <child link="yaw_link"/>
-    <origin xyz="0.0 0.0 0.005" rpy="0 0 -1.57079632679"/>
+    <origin xyz="0 0 0.005" rpy="0 0 0"/>
     <axis xyz="0 0 -1"/>
     <limit velocity="4.8" effort="1" lower="0.0" upper="2.0" />
   </joint>
@@ -82,7 +82,7 @@
   <joint name="fake_2_to_3_joint" type="fixed">
     <parent link="yaw_link" />
     <child link="fake_2_to_3" />
-    <origin xyz="0 0 0" rpy="0 0 0" />
+    <origin xyz="0 0 0" rpy="-1.57079632679 0 0" />
   </joint>
 
   <link name="pitch_link">
@@ -110,11 +110,11 @@
     </inertial>
   </link>
 
-  <joint name="pitch_joint" type="fixed">
+  <joint name="pitch_joint" type="revolute">
     <parent link="fake_2_to_3"/>
     <child link="pitch_link"/>
     <origin xyz="0.0 0.0 0.005" rpy="0 0 0"/>
-    <axis xyz="0 0 -1"/>
+    <axis xyz="1 0 0"/>
     <limit velocity="4.8" effort="1" lower="0.0" upper="2.0" />
   </joint>
 
