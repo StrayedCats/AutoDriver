@@ -48,37 +48,37 @@ public:
 
     publisher_ = this->create_publisher<std_msgs::msg::Int64>("target_volt", 1);
 
-    current_deg_sub = this->create_subscription<std_msgs::msg::Float64>("degree", 1, [&](const std_msgs::msg::Float64::SharedPtr msg) {
+    current_deg_sub = this->create_subscription<std_msgs::msg::Float64>(
+      "degree", 1, [&](const std_msgs::msg::Float64::SharedPtr msg) {
         current_deg = msg->data;
-    });
-    target_deg_sub = this->create_subscription<std_msgs::msg::Int64>("target_deg", 1, [&](const std_msgs::msg::Int64::SharedPtr msg) {
-      if (msg->data > max_limit)
-      {
-        RCLCPP_WARN(this->get_logger(), "Target degree is over max limit");
-        target_deg = max_limit;
-      }
-      else if (msg->data < min_limit)
-      {
-        RCLCPP_WARN(this->get_logger(), "Target degree is under min limit");
-        target_deg = min_limit;
-      }
-      else
-      {
-        target_deg = msg->data;
-      }
-    });
+      });
+    target_deg_sub = this->create_subscription<std_msgs::msg::Int64>(
+      "target_deg", 1, [&](const std_msgs::msg::Int64::SharedPtr msg) {
+        if (msg->data > max_limit) {
+          RCLCPP_WARN(this->get_logger(), "Target degree is over max limit");
+          target_deg = max_limit;
+        } else if (msg->data < min_limit) {
+          RCLCPP_WARN(this->get_logger(), "Target degree is under min limit");
+          target_deg = min_limit;
+        } else {
+          target_deg = msg->data;
+        }
+      });
 
-    timer_ = this->create_wall_timer(std::chrono::milliseconds(5), std::bind(&PidNode::timer_callback, this));
+    timer_ =
+      this->create_wall_timer(
+      std::chrono::milliseconds(5),
+      std::bind(&PidNode::timer_callback, this));
     pid = std::make_shared<PID>(p, i, d, max_spd, -max_spd, 0.005);
-    
+
   }
 
 private:
   void timer_callback()
   {
-      auto message = std_msgs::msg::Int64();
-      message.data = pid->calculate(target_deg, current_deg);
-      publisher_->publish(message);
+    auto message = std_msgs::msg::Int64();
+    message.data = pid->calculate(target_deg, current_deg);
+    publisher_->publish(message);
   }
 
   rclcpp::Publisher<std_msgs::msg::Int64>::SharedPtr publisher_;
