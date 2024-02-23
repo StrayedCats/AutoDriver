@@ -1,10 +1,10 @@
 <library path="auto_driver_hardware">
-    <class
-        name="auto_driver_hardware/AutoDriverHardware"
-        type="auto_driver_hardware::AutoDriverHardware"
-        base_class_type="hardware_interface::SystemInterface">
-      <description>
-        CoRE-1 Auto Driver hardware interface
-      </description>
-    </class>
-  </library>
+  <class
+      name="auto_driver_hardware/AutoDriverHardware"
+      type="auto_driver_hardware::AutoDriverHardware"
+      base_class_type="hardware_interface::SystemInterface">
+    <description>
+      CoRE-1 Auto Driver hardware interface
+    </description>
+  </class>
+</library>
