@@ -61,6 +61,12 @@ def generate_launch_description():
                         {'invert': True}
                     ]
                 ),
+                ComposableNode(
+                    package='auto_driver_interface',
+                    plugin='auto_driver_interface::HammerNode',
+                    name='hammer',
+                    namespace='servo0'
+                ),
             ],
         )
     ])
