@@ -41,7 +41,7 @@
   <joint name="fake_1_to_2_joint" type="fixed">
     <parent link="base_frame" />
     <child link="fake_1_to_2" />
-    <origin xyz="0 0 0.18" rpy="0 0 0" />
+    <origin xyz="0 0 0.18" rpy="0 0 -1.57079632679" />
   </joint>
 
 
@@ -82,12 +82,12 @@
   <joint name="fake_2_to_3_joint" type="fixed">
     <parent link="yaw_link" />
     <child link="fake_2_to_3" />
-    <origin xyz="0 0 0" rpy="-1.57079632679 0 0" />
+    <origin xyz="0 0 0.19" rpy="0 0 0" />
   </joint>
 
   <link name="pitch_link">
     <visual>
-      <origin xyz="0 0 0.019" rpy="0 0 0"/>
+      <origin xyz="0 0 -0.19" rpy="0 0 0"/>
       <geometry>
         <mesh filename="package://auto_driver_description/meshes/gimbal_pitch_link.stl" scale="0.001 0.001 0.001"/>
       </geometry>
@@ -114,7 +114,7 @@
     <parent link="fake_2_to_3"/>
     <child link="pitch_link"/>
     <origin xyz="0.0 0.0 0.005" rpy="0 0 0"/>
-    <axis xyz="1 0 0"/>
+    <axis xyz="-1 0 0"/>
     <limit velocity="4.8" effort="1" lower="0.0" upper="2.0" />
   </joint>
 
