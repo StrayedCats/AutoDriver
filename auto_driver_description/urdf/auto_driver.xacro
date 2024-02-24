@@ -82,7 +82,7 @@
   <joint name="fake_2_to_3_joint" type="fixed">
     <parent link="yaw_link" />
     <child link="fake_2_to_3" />
-    <origin xyz="0 0 0.19" rpy="0 0 0" />
+    <origin xyz="0 -0.05 0.22" rpy="0 0 0" />
   </joint>
 
   <link name="pitch_link">
@@ -116,6 +116,14 @@
     <origin xyz="0.0 0.0 0.005" rpy="0 0 0"/>
     <axis xyz="-1 0 0"/>
     <limit velocity="4.8" effort="1" lower="0.0" upper="2.0" />
+  </joint>
+
+  <link name="camera_link" />
+
+  <joint name="pitch_joint_to_camera_link" type="fixed">
+    <parent link="pitch_link"/>
+    <child link="camera_link"/>
+    <origin xyz="-0.06 0.065 -0.08" rpy="0 0 1.57079632679" />
   </joint>
 
 </xacro:macro>
