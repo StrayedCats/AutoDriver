@@ -18,7 +18,7 @@ def generate_launch_description():
                     name='pitch_motor',
                     namespace='can_node/gm6020_0',
                     parameters=[
-                        {'p': 100},
+                        {'p': 50},
                         {'i': 30},
                         {'d': 5},
                         {'max_spd': 8000},
@@ -66,6 +66,37 @@ def generate_launch_description():
                     plugin='auto_driver_interface::HammerNode',
                     name='hammer',
                     namespace='servo0'
+                ),
+                # topic_to_tf_node::Topic2TfNode
+                ComposableNode(
+                    package='topic_to_tf_node',
+                    plugin='topic_to_tf_node::Topic2TfNode',
+                    name='topic_to_tf_base_to_tf0',
+                    namespace='can_node/gm6020_1',
+                    parameters=[
+                        {'center_offset': -90.0},
+                        {'from_frame_id': 'base_link'},
+                        {'to_frame_id': 'tf0'},
+                        {'target_angle_axis': "yaw"},
+                        {'offset_x': 0.0},
+                        {'offset_y': 0.0},
+                        {'offset_z': 0.0}
+                    ]
+                ),
+                ComposableNode(
+                    package='topic_to_tf_node',
+                    plugin='topic_to_tf_node::Topic2TfNode',
+                    name='topic_to_tf_tf0_to_tf1',
+                    namespace='can_node/gm6020_0',
+                    parameters=[
+                        {'center_offset': -180.0},
+                        {'from_frame_id': 'tf0'},
+                        {'to_frame_id': 'tf1'},
+                        {'target_angle_axis': "pitch"},
+                        {'offset_x': 0.0},
+                        {'offset_y': 0.0},
+                        {'offset_z': 0.15}
+                    ]
                 ),
             ],
         )

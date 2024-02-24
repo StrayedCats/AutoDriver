@@ -1,19 +1,17 @@
 <?xml version="1.0"?>
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
-  <name>auto_driver_interface</name>
+  <name>auto_driver_bringup</name>
   <version>0.0.0</version>
-  <description>The auto_driver_interface package</description>
+  <description>The auto_driver_bringup package</description>
   <maintainer email="ray255ar@gmail.com">Ar-Ray-code</maintainer>
   <license>Apache-2.0 License</license>
   <author email="ray255ar@gmail.com">Ar-Ray-code</author>
 
-  <buildtool_depend>ament_cmake_auto</buildtool_depend>
+  <exec_depend>auto_driver_interface</exec_depend>
+  <exec_depend>auto_driver_hardware</exec_depend>
 
-  <depend>rclcpp</depend>
-  <depend>rclcpp_components</depend>
-  <depend>topic_to_tf</depend>
-  <depend>std_msgs</depend>
+  <buildtool_depend>ament_cmake_auto</buildtool_depend>
 
   <test_depend>ament_lint_auto</test_depend>
   <test_depend>ament_lint_common</test_depend>

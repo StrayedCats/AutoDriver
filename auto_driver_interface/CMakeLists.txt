@@ -4,8 +4,7 @@ project(auto_driver_interface)
 find_package(ament_cmake_auto REQUIRED)
 ament_auto_find_build_dependencies()
 
-
-# pid_node --------------------------------------------------
+# auto_driver_interface::PidNode
 set(TARGET pid_node)
 ament_auto_add_library(${TARGET} SHARED
   src/${TARGET}.cpp)
@@ -35,7 +34,4 @@ rclcpp_components_register_node(
   PLUGIN "${PROJECT_NAME}::HammerNode"
   EXECUTABLE ${TARGET}_exec)
 
-ament_auto_package(
-  INSTALL_TO_SHARE
-  launch
-)
+ament_auto_package()
