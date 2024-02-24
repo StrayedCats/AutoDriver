@@ -30,7 +30,8 @@ public:
 
     publisher_ = this->create_publisher<std_msgs::msg::Float64>("target_current", 1);
     target_current_sub = this->create_subscription<std_msgs::msg::Float64>(
-      "/target_current", 1, std::bind(&RollerNode::target_current_callback, this, std::placeholders::_1));
+      "/target_current", 1,
+      std::bind(&RollerNode::target_current_callback, this, std::placeholders::_1));
 
     timer_ =
       this->create_wall_timer(
