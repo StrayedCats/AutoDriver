@@ -5,15 +5,35 @@ find_package(ament_cmake_auto REQUIRED)
 ament_auto_find_build_dependencies()
 
 
-# yaw_node --------------------------------------------------
+# pid_node --------------------------------------------------
 set(TARGET pid_node)
-ament_auto_add_library(${PROJECT_NAME} SHARED
+ament_auto_add_library(${TARGET} SHARED
   src/${TARGET}.cpp)
 
 rclcpp_components_register_node(
-  ${PROJECT_NAME}
+  ${TARGET}
   PLUGIN "${PROJECT_NAME}::PidNode"
-  EXECUTABLE ${PROJECT_NAME}_exec)
+  EXECUTABLE ${TARGET}_exec)
+
+# auto_driver_interface::RollerNode
+set(TARGET roller_node)
+ament_auto_add_library(${TARGET} SHARED
+  src/${TARGET}.cpp)
+
+rclcpp_components_register_node(
+  ${TARGET}
+  PLUGIN "${PROJECT_NAME}::RollerNode"
+  EXECUTABLE ${TARGET}_exec)
+
+# auto_driver_interface::HammerNode
+set(TARGET hammer_node)
+ament_auto_add_library(${TARGET} SHARED
+  src/${TARGET}.cpp)
+
+rclcpp_components_register_node(
+  ${TARGET}
+  PLUGIN "${PROJECT_NAME}::HammerNode"
+  EXECUTABLE ${TARGET}_exec)
 
 ament_auto_package(
   INSTALL_TO_SHARE

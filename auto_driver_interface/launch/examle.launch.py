@@ -42,7 +42,25 @@ def generate_launch_description():
                         {'min_limit': 25},
                         {'max_limit': 315}
                     ]
-                )
+                ),
+                ComposableNode(
+                    package='auto_driver_interface',
+                    plugin='auto_driver_interface::RollerNode',
+                    name='roller0',
+                    namespace='can_node/c620_0',
+                    parameters=[
+                        {'invert': False}
+                    ]
+                ),
+                ComposableNode(
+                    package='auto_driver_interface',
+                    plugin='auto_driver_interface::RollerNode',
+                    name='roller1',
+                    namespace='can_node/c620_1',
+                    parameters=[
+                        {'invert': True}
+                    ]
+                ),
             ],
         )
     ])
