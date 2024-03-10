@@ -1,0 +1,11 @@
+#goal definition
+string root_tf_frame_id
+string camera_tf_frame_id
+string target_tf_frame_id
+---
+#result definition
+bool succeed
+int32 yaw_deg
+int32 pitch_deg
+---
+#feedback definition
