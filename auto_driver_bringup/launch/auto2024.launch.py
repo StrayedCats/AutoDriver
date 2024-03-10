@@ -31,9 +31,9 @@ def generate_launch_description():
                     name='pitch_motor',
                     namespace='can_node/gm6020_0',
                     parameters=[
-                        {'p': 50},
+                        {'p': 80},
                         {'i': 10},
-                        {'d': 5},
+                        {'d': 10},
                         {'max_spd': 8000},
                         {'init_deg': 120},
                         {'min_limit': 20},
@@ -47,10 +47,10 @@ def generate_launch_description():
                     name='yaw_motor',
                     namespace='can_node/gm6020_1',
                     parameters=[
-                        {'p': 50},
+                        {'p': 80},
                         {'i': 10},
                         {'d': 5},
-                        {'max_spd': 8000},
+                        {'max_spd': 5000},
                         {'init_deg': 180},
                         {'min_limit': 25},
                         {'max_limit': 315}
@@ -94,7 +94,8 @@ def generate_launch_description():
                         {'offset_x': 0.0},
                         {'offset_y': 0.0},
                         {'offset_z': 0.0},
-                        {'invert_degree': False}
+                        {'invert_degree': False},
+                        {'speed_multiplier': 0.5}
                     ]
                 ),
                 ComposableNode(
@@ -110,7 +111,8 @@ def generate_launch_description():
                         {'offset_x': 0.0},
                         {'offset_y': 0.0},
                         {'offset_z': 0.0},
-                        {'invert_degree': True}
+                        {'invert_degree': True},
+                        {'speed_multiplier': 0.5}
                     ]
                 )
             ],
