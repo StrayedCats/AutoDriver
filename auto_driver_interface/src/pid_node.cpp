@@ -18,7 +18,7 @@
 #include <std_msgs/msg/int64.hpp>
 #include <std_msgs/msg/bool.hpp>
 
-#include "pid.hpp"
+#include "auto_driver_interface/pid.hpp"
 
 namespace auto_driver_interface
 {

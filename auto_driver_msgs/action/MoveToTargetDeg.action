@@ -1,0 +1,9 @@
+#goal definition
+int32 yaw_deg
+int32 pitch_deg
+int32 msec
+---
+#result definition
+bool succeed
+---
+#feedback definition

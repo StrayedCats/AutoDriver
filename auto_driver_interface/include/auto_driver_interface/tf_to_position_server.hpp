@@ -23,6 +23,7 @@
 #include <rclcpp_action/rclcpp_action.hpp>
 #include <tf2_ros/transform_listener.h>
 #include <tf2_ros/buffer.h>
+#include <tf2/utils.h>
 
 #include "auto_driver_msgs/action/get_angles_from_tf.hpp"
 

@@ -44,5 +44,14 @@ rclcpp_components_register_node(
   PLUGIN "${PROJECT_NAME}::TfToPositionActionServer"
   EXECUTABLE ${TARGET}_exec)
 
+# auto_driver_interface::MoveToTargetDegServer
+set(TARGET move_to_target_deg_server)
+ament_auto_add_library(${TARGET} SHARED
+  src/${TARGET}.cpp)
+
+rclcpp_components_register_node(
+  ${TARGET}
+  PLUGIN "${PROJECT_NAME}::MoveToTargetDegServer"
+  EXECUTABLE ${TARGET}_exec)
 
 ament_auto_package()

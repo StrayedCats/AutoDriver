@@ -32,9 +32,9 @@ def generate_launch_description():
                     namespace='can_node/gm6020_0',
                     parameters=[
                         {'p': 80},
-                        {'i': 10},
-                        {'d': 10},
-                        {'max_spd': 8000},
+                        {'i': 0},
+                        {'d': 5},
+                        {'max_spd': 3000},
                         {'init_deg': 120},
                         {'min_limit': 20},
                         {'max_limit': 135}
@@ -48,9 +48,9 @@ def generate_launch_description():
                     namespace='can_node/gm6020_1',
                     parameters=[
                         {'p': 80},
-                        {'i': 10},
+                        {'i': 0},
                         {'d': 5},
-                        {'max_spd': 5000},
+                        {'max_spd': 3000},
                         {'init_deg': 180},
                         {'min_limit': 25},
                         {'max_limit': 315}
@@ -125,6 +125,20 @@ def generate_launch_description():
                 {"robot_description": robot_description_config.toxml()}],
             output="screen",
         ),
+        Node(
+            package="auto_driver_interface",
+            executable="move_to_target_deg_server_exec",
+            name="move_to_target_deg_server",
+            output="screen",
+        ),
+        Node(
+            package="auto_driver_interface",
+            executable="tf_to_position_server_exec",
+            name="tf_to_position_server",
+            output="screen",
+        ),
+
+
         Node(
             package="rviz2",
             executable="rviz2",
