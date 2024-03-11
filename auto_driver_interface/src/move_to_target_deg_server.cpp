@@ -66,8 +66,8 @@ namespace auto_driver_interface
 
     auto yaw_msg = std_msgs::msg::Int64();
     auto pitch_msg = std_msgs::msg::Int64();
-    yaw_msg.data = goal->yaw_deg;
-    pitch_msg.data = goal->pitch_deg;
+    yaw_msg.data = goal->yaw_deg + (goal->yaw_deg + center_offset_yaw_) * speed_multiplier_yaw_;
+    pitch_msg.data = goal->pitch_deg + (goal->pitch_deg + center_offset_pitch_) * speed_multiplier_pitch_;
     this->yaw_publisher_->publish(yaw_msg);
     this->pitch_publisher_->publish(pitch_msg);
 

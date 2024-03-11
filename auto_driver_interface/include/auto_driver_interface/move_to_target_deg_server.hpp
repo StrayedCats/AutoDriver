@@ -35,10 +35,15 @@ public:
   explicit MoveToTargetDegServer(const rclcpp::NodeOptions &);
 
 private:
+  double center_offset_yaw_ = -180.0;
+  double center_offset_pitch_ = -90.0;
+
+  double speed_multiplier_yaw_ = 0.5;
+  double speed_multiplier_pitch_ = 0.5;
+
   rclcpp_action::Server<MoveToTargetDeg>::SharedPtr action_server_;
 
   rclcpp_action::GoalResponse handle_goal(const rclcpp_action::GoalUUID &, std::shared_ptr<const MoveToTargetDeg::Goal>);
-
   rclcpp_action::CancelResponse handle_cancel(const std::shared_ptr<GoalHandleMoveToTargetDeg>);
 
   void handle_accepted(const std::shared_ptr<GoalHandleMoveToTargetDeg>);
