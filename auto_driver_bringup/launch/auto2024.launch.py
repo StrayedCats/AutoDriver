@@ -33,8 +33,8 @@ def generate_launch_description():
                     parameters=[
                         {'p': 80},
                         {'i': 0},
-                        {'d': 10},
-                        {'max_spd': 8000},
+                        {'d': 5},
+                        {'max_spd': 3000},
                         {'init_deg': 120},
                         {'min_limit': 20},
                         {'max_limit': 135}
