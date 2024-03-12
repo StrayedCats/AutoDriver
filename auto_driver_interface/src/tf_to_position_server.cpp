@@ -103,17 +103,18 @@ namespace auto_driver_interface
       tf2::Quaternion q(current_rotation.x, current_rotation.y, current_rotation.z, current_rotation.w);
       tf2::Matrix3x3 m(q);
       m.getRPY(current_roll, pitch_gap, yaw_gap);
+      auto roll_gap_deg = current_roll * 180 / M_PI;
       yaw_gap_deg = yaw_gap * 180 / M_PI;
       pitch_gap_deg = pitch_gap * 180 / M_PI;
 
-
-      RCLCPP_INFO(this->get_logger(), "current yaw: %f, pitch: %f", yaw_gap_deg, pitch_gap_deg);
       auto yaw = atan2(y, x);
       yaw = (x < 0) ? -yaw : yaw;
       auto degree = yaw * 180 / M_PI;
 
-      auto pitch = atan2(y, z);
+      auto x_y = sqrt(x * x + y * y);
+      auto pitch = atan2(x_y, z);
       pitch = (z < 0) ? -pitch : pitch;
+      pitch = pitch * 180 / M_PI;
 
       result->yaw_deg = static_cast<int32_t>(degree);
       result->pitch_deg = static_cast<int32_t>(pitch);
