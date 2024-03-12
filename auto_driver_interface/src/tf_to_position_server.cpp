@@ -75,6 +75,7 @@ namespace auto_driver_interface
     auto tf_from = goal->camera_tf_frame_id;
     auto tf_to = goal->target_tf_frame_id;
     auto retry_count = 5;
+    auto z_offset = 0.09; // 9cm
     geometry_msgs::msg::TransformStamped transform;
 
     for (int i = 0; i < retry_count; i++)
@@ -104,8 +105,7 @@ namespace auto_driver_interface
       auto degree = yaw * 180 / M_PI;
 
       auto x_y = sqrt(x * x + y * y);
-      auto pitch = atan2(x_y, z);
-      pitch = (z < 0) ? -pitch : pitch;
+      auto pitch = atan2(x_y, z + z_offset);
       pitch = pitch * 180 / M_PI;
 
       result->yaw_deg = static_cast<int32_t>(degree);

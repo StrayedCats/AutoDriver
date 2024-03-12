@@ -31,7 +31,7 @@ def generate_launch_description():
                     name='pitch_motor',
                     namespace='can_node/gm6020_0',
                     parameters=[
-                        {'p': 80},
+                        {'p': 100},
                         {'i': 1},
                         {'d': 5},
                         {'max_spd': 3000},
@@ -48,9 +48,9 @@ def generate_launch_description():
                     namespace='can_node/gm6020_1',
                     parameters=[
                         {'p': 80},
-                        {'i': 0},
+                        {'i': 1},
                         {'d': 5},
-                        {'max_spd': 3000},
+                        {'max_spd': 2000},
                         {'init_deg': 180},
                         {'min_limit': 25},
                         {'max_limit': 315}
