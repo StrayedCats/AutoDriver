@@ -99,14 +99,6 @@ namespace auto_driver_interface
       auto z = transform2.transform.translation.z - transform.transform.translation.z;
       auto current_rotation = transform.transform.rotation;
 
-      double yaw_gap, pitch_gap, current_roll, yaw_gap_deg, pitch_gap_deg;
-      tf2::Quaternion q(current_rotation.x, current_rotation.y, current_rotation.z, current_rotation.w);
-      tf2::Matrix3x3 m(q);
-      m.getRPY(current_roll, pitch_gap, yaw_gap);
-      auto roll_gap_deg = current_roll * 180 / M_PI;
-      yaw_gap_deg = yaw_gap * 180 / M_PI;
-      pitch_gap_deg = pitch_gap * 180 / M_PI;
-
       auto yaw = atan2(y, x);
       yaw = (x < 0) ? -yaw : yaw;
       auto degree = yaw * 180 / M_PI;
@@ -118,11 +110,7 @@ namespace auto_driver_interface
 
       result->yaw_deg = static_cast<int32_t>(degree);
       result->pitch_deg = static_cast<int32_t>(pitch);
-      result->yaw_gap_deg = static_cast<int32_t>(yaw_gap_deg);
-      result->pitch_gap_deg = static_cast<int32_t>(pitch_gap_deg);
       result->succeed = true;
-
-      RCLCPP_INFO(this->get_logger(), "yaw: %f", degree);
 
       goal_handle->succeed(result);
       return;

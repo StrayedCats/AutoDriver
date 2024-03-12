@@ -7,7 +7,5 @@ string target_tf_frame_id
 bool succeed
 int32 yaw_deg
 int32 pitch_deg
-int32 yaw_gap_deg
-int32 pitch_gap_deg
 ---
 #feedback definition
