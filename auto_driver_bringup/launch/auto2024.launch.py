@@ -1,7 +1,5 @@
 from ament_index_python.packages import get_package_share_directory
 import launch
-from launch.actions import DeclareLaunchArgument
-from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import ComposableNodeContainer
 from launch_ros.descriptions import ComposableNode
 from launch_ros.actions import Node
@@ -123,27 +121,6 @@ def generate_launch_description():
             name="robot_state_publisher",
             parameters=[
                 {"robot_description": robot_description_config.toxml()}],
-            output="screen",
-        ),
-        Node(
-            package="auto_driver_interface",
-            executable="move_to_target_deg_server_exec",
-            name="move_to_target_deg_server",
-            output="screen",
-        ),
-        Node(
-            package="auto_driver_interface",
-            executable="tf_to_position_server_exec",
-            name="tf_to_position_server",
-            output="screen",
-        ),
-
-
-        Node(
-            package="rviz2",
-            executable="rviz2",
-            name="rviz2",
-            arguments=["-d", rviz_config],
             output="screen",
         )
     ])
