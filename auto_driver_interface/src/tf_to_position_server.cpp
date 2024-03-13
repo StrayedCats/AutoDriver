@@ -20,6 +20,12 @@ namespace auto_driver_interface
   TfToPositionActionServer::TfToPositionActionServer(const rclcpp::NodeOptions & options)
     : Node("tf_to_position_action_server", options)
   {
+    this->declare_parameter("z_offset", 0.09);
+    this->declare_parameter("retry_count", 5);
+
+    this->z_offset_ = this->get_parameter("z_offset").as_double();
+    this->retry_count_ = this->get_parameter("retry_count").as_int();
+
     tf_buffer_ = std::make_shared<tf2_ros::Buffer>(this->get_clock());
     tf_listener_ = std::make_shared<tf2_ros::TransformListener>(*tf_buffer_);
 
@@ -44,7 +50,6 @@ namespace auto_driver_interface
       RCLCPP_ERROR(this->get_logger(), "Invalid goal request");
       return rclcpp_action::GoalResponse::REJECT;
     }
-
 
     return rclcpp_action::GoalResponse::ACCEPT_AND_EXECUTE;
   }
@@ -74,11 +79,10 @@ namespace auto_driver_interface
     auto tf_root = goal->root_tf_frame_id;
     auto tf_from = goal->camera_tf_frame_id;
     auto tf_to = goal->target_tf_frame_id;
-    auto retry_count = 5;
-    auto z_offset = 0.09; // 9cm
+
     geometry_msgs::msg::TransformStamped transform;
 
-    for (int i = 0; i < retry_count; i++)
+    for (size_t i = 0; i < this->retry_count_; i++)
     {
       try {
         transform = tf_buffer_->lookupTransform(tf_root, tf_from, tf2::TimePointZero);
@@ -105,7 +109,7 @@ namespace auto_driver_interface
       auto degree = yaw * 180 / M_PI;
 
       auto x_y = sqrt(x * x + y * y);
-      auto pitch = atan2(x_y, z + z_offset);
+      auto pitch = atan2(x_y, z + this->z_offset_);
       pitch = pitch * 180 / M_PI;
 
       result->yaw_deg = static_cast<int32_t>(degree);

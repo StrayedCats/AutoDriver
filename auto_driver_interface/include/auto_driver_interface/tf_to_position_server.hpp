@@ -51,8 +51,10 @@ private:
     const std::shared_ptr<GoalHandleTfToPosition>);
 
   void handle_accepted(const std::shared_ptr<GoalHandleTfToPosition>);
-
   void execute(const std::shared_ptr<GoalHandleTfToPosition>);
+
+  double z_offset_;
+  int32_t retry_count_;
 };
 
 }  // namespace auto_driver_interface
