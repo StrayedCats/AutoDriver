@@ -1,5 +1,8 @@
 from ament_index_python.packages import get_package_share_directory
-import launch
+from launch import LaunchDescription
+from launch.actions import DeclareLaunchArgument
+from launch.conditions import IfCondition
+from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import ComposableNodeContainer
 from launch_ros.descriptions import ComposableNode
 from launch_ros.actions import Node
@@ -10,13 +13,15 @@ import xacro
 def generate_launch_description():
     robot_name = "auto_driver"
     package_name = robot_name + "_description"
-    rviz_config = os.path.join(get_package_share_directory(
-        package_name), "launch", robot_name + ".rviz")
     robot_description = os.path.join(get_package_share_directory(
         package_name), "urdf", robot_name + ".urdf.xacro")
     robot_description_config = xacro.process_file(robot_description)
 
-    return launch.LaunchDescription([
+    use_core1_hardware = LaunchConfiguration('use_core1_hardware', default=True)
+    use_core1_hardware_arg = DeclareLaunchArgument('use_core1_hardware', default_value=use_core1_hardware, description='Use viewer')
+
+    return LaunchDescription([
+        use_core1_hardware_arg,
         ComposableNodeContainer(
             name='auto_driver_interface',
             namespace='',
@@ -24,6 +29,7 @@ def generate_launch_description():
             executable='component_container',
             composable_node_descriptions=[
                 ComposableNode(
+                    condition=IfCondition(use_core1_hardware),
                     package='auto_driver_interface',
                     plugin='auto_driver_interface::PidNode',
                     name='pitch_motor',
@@ -40,6 +46,7 @@ def generate_launch_description():
                 ),
 
                 ComposableNode(
+                    condition=IfCondition(use_core1_hardware),
                     package='auto_driver_interface',
                     plugin='auto_driver_interface::PidNode',
                     name='yaw_motor',
@@ -55,6 +62,7 @@ def generate_launch_description():
                     ]
                 ),
                 ComposableNode(
+                    condition=IfCondition(use_core1_hardware),
                     package='auto_driver_interface',
                     plugin='auto_driver_interface::RollerNode',
                     name='roller0',
@@ -64,6 +72,7 @@ def generate_launch_description():
                     ]
                 ),
                 ComposableNode(
+                    condition=IfCondition(use_core1_hardware),
                     package='auto_driver_interface',
                     plugin='auto_driver_interface::RollerNode',
                     name='roller1',
@@ -73,13 +82,14 @@ def generate_launch_description():
                     ]
                 ),
                 ComposableNode(
+                    condition=IfCondition(use_core1_hardware),
                     package='auto_driver_interface',
                     plugin='auto_driver_interface::HammerNode',
                     name='hammer',
                     namespace='servo0'
                 ),
-                # topic_to_tf_node::Topic2TfNode
                 ComposableNode(
+                    condition=IfCondition(use_core1_hardware),
                     package='topic_to_tf_node',
                     plugin='topic_to_tf_node::Topic2TfNode',
                     name='topic_to_tf_base_to_tf0',
@@ -97,6 +107,7 @@ def generate_launch_description():
                     ]
                 ),
                 ComposableNode(
+                    condition=IfCondition(use_core1_hardware),
                     package='topic_to_tf_node',
                     plugin='topic_to_tf_node::Topic2TfNode',
                     name='topic_to_tf_tf0_to_tf1',
@@ -116,6 +127,7 @@ def generate_launch_description():
             ],
         ),
         Node(
+            condition=IfCondition(use_core1_hardware),
             package="robot_state_publisher",
             executable="robot_state_publisher",
             name="robot_state_publisher",
