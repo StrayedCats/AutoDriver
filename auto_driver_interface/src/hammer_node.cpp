@@ -28,11 +28,12 @@ public:
       "/hammer", 10, [this](const std_msgs::msg::Empty::SharedPtr msg) {
         if (!trigger) {
           trigger = true;
-          push();
+          for (int i = 0; i < 50; i++) {
+            push();
+            std::this_thread::sleep_for(std::chrono::milliseconds(10));
+          }
           pull_timer = this->create_wall_timer(
             std::chrono::milliseconds(800), std::bind(&HammerNode::pull, this));
-          clear_timer = this->create_wall_timer(
-            std::chrono::milliseconds(1600), std::bind(&HammerNode::clear, this));
         }
       });
 
@@ -50,14 +51,20 @@ private:
   void push()
   {
     RCLCPP_INFO(this->get_logger(), "push");
-    hammer(85.0);
+    hammer(180.0);
   }
 
   void pull()
   {
-    hammer(0.0);
+    for (int i = 0; i < 100; i++) {
+      hammer(0.0);
+      std::this_thread::sleep_for(std::chrono::milliseconds(50));
+    }
     RCLCPP_INFO(this->get_logger(), "pull");
     pull_timer->cancel();
+
+    clear_timer = this->create_wall_timer(
+      std::chrono::milliseconds(800), std::bind(&HammerNode::clear, this));
   }
 
   void clear()
